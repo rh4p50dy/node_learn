@@ -1,0 +1,26 @@
+<%- include("./../includes/header") %>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="box">
+        <h1 class="title">I'm Home Page</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, molestias. Molestiae consequatur repudiandae natus, quis, provident eius facilis adipisci id pariatur magnam, dolores ipsa porro ad voluptatum consequuntur hic quae?
+        </p>
+        <a href="/admin/add-post">Add a New Post</a>
+        <hr>
+        <h1 class="title">Posts</h1>
+        <% if(posts.length < 1){%>
+            <h2 class="post-title">
+                There is no Posts.
+            </h2>
+        <% }%>
+        <% for(let i in posts) { %>
+            <h2 class="post-title">
+                <%= posts[i].title %>
+            </h2>
+            <a class="btn" href="post/<%= posts[i].id %>">Details</a>
+        <% } %>
+    </div>
+</body>
+</html>

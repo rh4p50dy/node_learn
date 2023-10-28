@@ -1,0 +1,19 @@
+<%- include("./../includes/header") %>
+    <link rel="stylesheet" href="./../css/style.css">
+</head>
+<body>
+    <div class="box">
+        <h1 class="title">I'm Post Details Page</h1>
+        <hr>
+            <div class="center">
+                <img class="img" src="<%= post.img %>" alt="error img">
+            </div>
+            <h2 class="post-title">
+                <%= post.title %>
+            </h2>
+            <p class="post-dec">
+                <%= post.description %>
+            </p>
+    </div>
+</body>
+</html>

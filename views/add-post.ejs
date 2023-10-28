@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./../css/style.css">
+</head>
+<body>
+    <div class="box border">
+        <div class="innerBox">
+            <h2 class="title">Add a new post here </h2>
+            <form action="/admin" method="post">
+                <label for="title">Enter Title : </label>
+                <input type="text" name="title" id="title">
+                <label for="img">Enter Photo URL : </label>
+                <input type="text" name="img" id="img">
+                <label for="description">Enter Description : </label>
+                <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <div class="box">
+        <a href="/">View Posts</a>
+    </div>
+</body>
+</html>
