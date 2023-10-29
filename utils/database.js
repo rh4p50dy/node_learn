@@ -16,10 +16,8 @@ const mongodbConnector = ()=>{
 }
 
 const getDatabase = ()=>{
-    if(db){
-        return db
-    }
-    throw "NO DB"
+    if(db){return db}
+    throw "DB Err"
 }
 
 module.exports = {mongodbConnector, getDatabase}
