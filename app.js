@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const postController = require('./controllers/posts')
 const postRouter = require('./routes/post')
+const {connect} = require('./utils/database')
 const {adminRouter,posts} = require('./routes/admin');
 const bodyParser = require('body-parser');
 
@@ -29,7 +30,7 @@ app.use('/admin',adminRouter)
 app.get('/',postController.renderPostPage)
 
 
-
+connect()
 app.listen(8001,()=>{
     console.log("Server is Listeing on port 8001..")
 })
