@@ -1,26 +1,28 @@
 const posts = [];
 
+const Post = require('../models/postModel')
+
+
 exports.createPost = (req,res)=>{
     let {title,img,description} = req.body;
-    console.log(`The tile is ${title} & body is ${description}.`)
-    posts.push(
-        {id: Math.random(),title,img,description}
-    )
+    const PostModel = new Post(title,img,description);
+    PostModel.create()
     res.redirect('/')
 }
 
 exports.renderAddPostPage = (req,res)=>{
-    // res.sendFile('./views/add-post.html',{root : `${__dirname}/../`});
     res.render("add-post")
 }
 
 exports.renderPostPage = (req,res)=>{
-    // res.sendFile('./views/home.html',{root : `${__dirname}`});
-    res.render('home',{title : "Hello World",posts});
+    Post.getPost().then(posts => res.render('home',{title : "Hello World",posts}))
 }
 
 exports.renderDetailPage = (req,res)=>{
-    let post = posts.find(post => post.id == req.params.postID)
-    console.log(post)
-    res.render("detail",{title : "Post Details Page",post})
+    Post.getPost().then(posts => {
+        let post = posts.find(post => post._id == req.params.postID)
+        console.log(post)
+        res.render("detail",{title : "Post Details Page",post})
+    })
+    
 }
