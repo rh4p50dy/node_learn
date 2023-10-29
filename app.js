@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 const postController = require('./controllers/posts')
 const postRouter = require('./routes/post')
-const {adminRouter,posts} = require('./routes/admin');
-const {mongodbConnector} = require('./utils/database')
+const {adminRouter} = require('./routes/admin');
+const mongoose = require("mongoose")
+const dotenv = require("dotenv").config()
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -30,7 +31,11 @@ app.use('/admin',adminRouter)
 app.get('/',postController.renderPostPage)
 
 
-mongodbConnector();
-app.listen(8002,()=>{
-    console.log("Server is Listeing on port 8002..")
-})
+mongoose.connect(process.env.MONGODB_URL)
+    .then(_ => {
+        console.log("DB Connected")
+        app.listen(8002,()=>{
+            console.log("Server is Listeing on port 8002..")
+        })
+    })
+    .catch(e => console.log(e))
