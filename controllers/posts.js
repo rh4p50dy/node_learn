@@ -1,6 +1,7 @@
 const posts = [];
 
 const Post = require('../models/postModel')
+const mongodb = require('mongodb')
 
 
 exports.createPost = (req,res)=>{
@@ -21,8 +22,7 @@ exports.renderPostPage = (req,res)=>{
 exports.renderDetailPage = (req,res)=>{
     Post.getPost().then(posts => {
         let post = posts.find(post => post._id == req.params.postID)
-        console.log(post)
-        res.render("detail",{title : "Post Details Page",post})
+        res.render("detail",{title : post.title,post})
     })
     
 }
