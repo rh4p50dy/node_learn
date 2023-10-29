@@ -3,6 +3,7 @@ const path = require('path');
 const postController = require('./controllers/posts')
 const postRouter = require('./routes/post')
 const {adminRouter,posts} = require('./routes/admin');
+const {mongodbConnector} = require('./utils/database')
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -29,7 +30,7 @@ app.use('/admin',adminRouter)
 app.get('/',postController.renderPostPage)
 
 
-
-app.listen(8001,()=>{
-    console.log("Server is Listeing on port 8001..")
+mongodbConnector();
+app.listen(8002,()=>{
+    console.log("Server is Listeing on port 8002..")
 })
