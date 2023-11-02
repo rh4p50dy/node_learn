@@ -6,14 +6,14 @@
     <title><%= title %></title>
 </head>
 <body>
-    <h2><%= isLogin ? "True" : "" %></h2>
+    <h1>Login Form</h1>
     <form action="/login" method="post">
 
         <label for="name">UserName : </label>
-        <input type="text" name="name" id="name">
+        <input type="text" name="email" id="name">
         <label for="password">UserName : </label>
         <input type="password" name="password" id="password">
-        <input type="submit" id="btn" value="Submit">
+        <input type="submit" id="btn" value="Login">
 
     </form>
 </body>

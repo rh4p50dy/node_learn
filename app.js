@@ -42,17 +42,6 @@ app.use(express.static(path.join(__dirname,'public')))
 app.use(bodyParser.urlencoded({extended : false}))
 app.use(cookieParser())
 
-
-app.use((req,res,next)=>{
-    UserModel.findById('653f580c174139527a347901')
-    .then(user => {
-        req.user = user;
-        console.log("User Added");
-        next()
-    })
-    .catch(e => console.log(e))
-})
-
 app.use('/post',postRouter)
 app.use('/admin',adminRouter)
 app.use(loginRouter)
@@ -66,15 +55,6 @@ mongoose.connect(process.env.MONGODB_URL)
         console.log("DB Connected")
         app.listen(port,()=>{
             console.log(`Server is Listeing on port ${port}..`)
-        })
-
-        UserModel.findOne()
-            .then(user => {
-                if(!user){
-                    return UserModel.create({username : "Guest",email : "guest@nodejs.com",password : "nodeisfun"})
-                }
-                return user 
-            })
-            
+        })  
     })
     .catch(e => console.log(e))
