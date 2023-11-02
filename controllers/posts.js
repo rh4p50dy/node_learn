@@ -16,7 +16,7 @@ exports.renderPostPage = (req,res)=>{
         .select("title description") //ဒါဆိုရင် find ထဲကနေ title နဲ့ desc ပဲထုတ်ပေးလိမ့်မယ်
         .populate("userID", "username")  //userID က collection နာမည် username ကကျ ထုတ်ချင်တဲ့ကောင်နာမည် username မထည့်လည်းရတယ် collection တစ်ခုလုံးပြတယ်
         .sort({title: -1})
-        .then(posts => res.render('home',{title : "Hello World",posts}))
+        .then(posts => res.render('home',{title : "Hello World",isLogin : req.session.isLogin ? true : false ,posts}))
 
         .catch(e => console.log(e))
 }
