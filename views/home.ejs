@@ -7,7 +7,14 @@
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, molestias. Molestiae consequatur repudiandae natus, quis, provident eius facilis adipisci id pariatur magnam, dolores ipsa porro ad voluptatum consequuntur hic quae?
         </p>
-        <a href="/admin/add-post">Add a New Post</a>
+        <%  if(isLogin) {  %>
+            <a href="/admin/add-post">Add a New Post</a>
+            <a href="/logout">Logout</a>
+
+        <% }else{ %>
+            <a href="/register">Create an Account</a>
+            <a href="/login">Login</a>
+        <% } %>
         <hr>
         <h1 class="title">Posts</h1>
         <% if(posts.length < 1){%>
