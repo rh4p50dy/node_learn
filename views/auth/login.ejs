@@ -7,8 +7,8 @@
 </head>
 <body>
     <h1>Login Form</h1>
-    <form action="/login" method="post">
-
+    <form action="/login" method="post">    
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <label for="name">UserName : </label>
         <input type="text" name="email" id="name">
         <label for="password">UserName : </label>

@@ -1,4 +1,5 @@
 const express = require('express');
+const csrf = require('csurf')
 const path = require('path');
 const session = require('express-session')
 const mongoose = require("mongoose")
@@ -22,11 +23,13 @@ const {adminRouter} = require('./routes/admin');
 const cookieParser = require('cookie-parser');
 
 
+
 //view-engine
 app.set('view engine','ejs')
 app.set('views','views')
 
 
+const csrfProtect = csrf()
 
 app.use(session({
     secret : process.env.SECRECT_KEY,
@@ -37,14 +40,34 @@ app.use(session({
     },
     store
 }))
+
+
+
+//middle ware
+app.use((req,res,next)=>{
+    if(req.session.isLogin !== undefined){
+        UserModel.findById(req.session.userinfo._id)
+            .select("_id email")
+            .then(user => {return req.user = user})
+    }
+    next()
+})
+
 //file path ကိုဖွင့်ပေးတာ
 app.use(express.static(path.join(__dirname,'public')))
 app.use(bodyParser.urlencoded({extended : false}))
 app.use(cookieParser())
+app.use(csrfProtect)
 
+//csrf for everypage render
+app.use((req,res,next)=>{
+    res.locals.csrfToken = req.csrfToken()
+    next()
+})
 app.use('/post',postRouter)
 app.use('/admin',adminRouter)
 app.use(loginRouter)
+
 
 app.get('/',postController.renderPostPage)
 

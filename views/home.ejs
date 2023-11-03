@@ -9,11 +9,16 @@
         </p>
         <%  if(isLogin) {  %>
             <a href="/admin/add-post">Add a New Post</a>
-            <a href="/logout">Logout</a>
+            <form action="/logout" method="post">
+                <!-- name က _csrf ပဲဖြစ်ရမယ် -->
+                <input type="hidden" value="<%= csrfToken %>" name="_csrf"> 
+                <button type="submit">Logout</button>
+            </form>
+            
 
         <% }else{ %>
             <a href="/register">Create an Account</a>
-            <a href="/login">Login</a>
+            <a href="/login">Log In</a>
         <% } %>
         <hr>
         <h1 class="title">Posts</h1>
@@ -26,6 +31,9 @@
             <h2 class="post-title">
                 <%= posts[i].title %>
             </h2>
+            <p>
+                Created by @<%= posts[i].userID.email %>
+            </p>
             <a class="btn" href="post/<%= posts[i]._id %>">Details</a>
         <% } %>
     </div>

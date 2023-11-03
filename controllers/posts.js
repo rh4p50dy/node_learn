@@ -2,7 +2,7 @@ const PostModel = require('../models/PostModel')
 
 exports.createPost = (req,res)=>{
     const {title,img,description} = req.body;
-    PostModel.create({title,description,img, userID : req.user}).then(() => res.redirect('/')).catch(e => console.log(e))
+    PostModel.create({title,description,img, userID : req.session.userinfo._id}).then(() => res.redirect('/')).catch(e => console.log(e))
 }
 
 exports.renderAddPostPage = (req,res)=>{
@@ -14,9 +14,9 @@ exports.renderPostPage = (req,res)=>{
     PostModel
         .find()
         .select("title description") //ဒါဆိုရင် find ထဲကနေ title နဲ့ desc ပဲထုတ်ပေးလိမ့်မယ်
-        .populate("userID", "username")  //userID က collection နာမည် username ကကျ ထုတ်ချင်တဲ့ကောင်နာမည် username မထည့်လည်းရတယ် collection တစ်ခုလုံးပြတယ်
-        .sort({title: -1})
-        .then(posts => res.render('home',{title : "Hello World",isLogin : req.session.isLogin ? true : false ,posts}))
+        .populate("userID","email")  //userID က collection နာမည် username ကကျ ထုတ်ချင်တဲ့ကောင်နာမည် username မထည့်လည်းရတယ် collection တစ်ခုလုံးပြတယ်
+        .sort({title: -1}) //title တွေကို ပြောင်းပြန်ထုတ်
+        .then(posts => res.render('home',{title : "Hello World",isLogin : req.session.isLogin ? true : false ,csrfToken : req.csrfToken(),posts}))
 
         .catch(e => console.log(e))
 }

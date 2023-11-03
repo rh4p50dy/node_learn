@@ -8,7 +8,7 @@
 <body>
     <h1>Register Form</h1>
     <form action="/register" method="post">
-
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <label for="name">UserName : </label>
         <input type="text" name="email" id="name">
         <label for="password">UserName : </label>

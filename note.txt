@@ -1,0 +1,16 @@
+csrf token သုံးဖို့
+1.csurf ကိုသွင်းတယ်
+2.const csrf = require('csruf') ပြီးရင်
+3.const csrfProtect = csrf() ဆိုပြီး ကြေညာ
+4. app.use(csrfProtect) ဆိုပြီးသုံးရုံပဲ ဒီလိုကြေညာတဲ့နေရာမှာ ဒီကောင်က cookie-parser နဲ့ session middleware အောက်မှာပဲရှိနေသင့်တယ်
+
+formတွေထဲ token ကို ejs နဲ့ထည့်ရေးဖို့ဆို req.csrfToken() ဆိုတဲ့ method ခေါ်သုံးရတယ် သတိထားရမှာက input ရဲ့ name က _csrf ပဲဖြစ်ရမယ်
+
+တစ်နေရာစီ csrf မထည့်ချင်ရင် 
+app.use((req,res,next)=>{
+    res.locals.csrfToken = req.csrfToken()
+    next()
+})
+နဲ့ရေးလို့ရတယ်
+
+ဒါဆို form ထဲမှာ ဒါလေးထည့်ရုံပဲ <input type="hidden" name="_csrf" value="<%= csrfToken %>">
