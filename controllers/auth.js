@@ -24,6 +24,7 @@ exports.loginHandler = (req,res)=>{
             }
             bcrypt.compare(password,user.password)
                 .then(isMatch => {
+                    //check if passwords match
                     if(isMatch){
                         req.session.isLogin = true
                         req.session.userinfo = user;
@@ -33,6 +34,8 @@ exports.loginHandler = (req,res)=>{
                         })
                         
                     }
+
+                    //redriect if pass is wrong
                     res.redirect("/login")
                 })
                 .catch(e => console.log(e))
@@ -43,11 +46,13 @@ exports.loginHandler = (req,res)=>{
 //Handle Login
 exports.registerHandler = (req,res)=>{
     const {email, password} = req.body;
-    UserModel.findOne({email,password})
+    UserModel.findOne({email}) //checkif email already exists
         .then(res => {
             if(res){
                 return res.redirect('/')
             }
+
+            //hash password before saving in database
             return bcrypt.hash(password,10)
         }).then(hashed => {
             return UserModel.create({
